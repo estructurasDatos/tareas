@@ -1,0 +1,255 @@
+
+
+public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        
+        clsPersona Starling = new clsPersona("Starling", 702350408, "14/04/1995", 170, 70);
+
+        System.out.println(Starling.ProvinciaOrigen());
+        System.out.println(Starling.Edad());
+        System.out.println(Starling.IMC());
+        System.out.println(Starling.signoZodical());
+        
+        clsParqueo Sanchez = new clsParqueo("Sanchez", 90123050, 20);
+        
+        Sanchez.agregarAutoParqueo();
+        Sanchez.AbrirParqueo();
+        Sanchez.agregarAutoParqueo();
+        Sanchez.agregarAutoParqueo();
+        Sanchez.agregarAutoParqueo();
+        Sanchez.sacarAutoParqueo();
+        Sanchez.sacarAutoParqueo();
+        Sanchez.CerrarParqueo();
+        
+        }
+    
+}
+
+/*****************************************************************************************************************************/
+
+public class clsParqueo {
+    String nombre;
+    int ced;
+    int espaciosDisponibles;
+    boolean estadoParqueo;
+
+    public clsParqueo(String nombre, int ced, int espaciosDisponibles) {
+        this.nombre = nombre;
+        this.ced = ced;
+        this.espaciosDisponibles = espaciosDisponibles;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCed() {
+        return ced;
+    }
+
+    public void setCed(int ced) {
+        this.ced = ced;
+    }
+
+    public int getEspaciosDisponibles() {
+        return espaciosDisponibles;
+    }
+
+    public void setEspaciosDisponibles(int espaciosDisponibles) {
+        this.espaciosDisponibles = espaciosDisponibles;
+    }
+    
+    public void agregarAutoParqueo(){
+        if(estadoParqueo)
+            if(espaciosDisponibles>=1){
+                espaciosDisponibles -= 1;
+                System.out.println("Se agregó con exito");
+                System.out.println("Espacios Disponibles: "+ espaciosDisponibles);
+            }else
+                System.out.println("No hay espacios disponibles");
+        else
+            System.out.println("Parqueo Cerrado");
+    }
+    public void sacarAutoParqueo(){
+        if(estadoParqueo){
+            espaciosDisponibles+=1;
+            System.out.println("Se sacó auto con exito");
+            System.out.println("Espacios Disponibles: "+ espaciosDisponibles);
+        }else
+            System.out.println("Parqueo Cerrado");
+    }
+    public void AbrirParqueo(){
+        estadoParqueo = true;
+        System.out.println("Parqueo se abrió");
+    }
+    public void CerrarParqueo(){
+        estadoParqueo = false;
+        System.out.println("Parqueo se cerró");
+    }
+    
+    
+}
+
+/*****************************************************************************************************************************/
+
+public class clsPersona {
+    String nombre;
+    int ced;
+    String fechaNacimiento;
+    int altura;
+    int masa;
+
+    public clsPersona(String nombre, int ced, String fechaNacimiento, int altura, int masa) {
+        this.nombre = nombre;
+        this.ced = ced;
+        this.fechaNacimiento = fechaNacimiento;
+        this.altura = altura;
+        this.masa = masa;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCed() {
+        return ced;
+    }
+
+    public void setCed(int ced) {
+        this.ced = ced;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    public double getMasa() {
+        return masa;
+    }
+
+    public void setMasa(int masa) {
+        this.masa = masa;
+    }
+      
+    public String ProvinciaOrigen(){
+        int primerNumero;
+        primerNumero = ced/100000000;
+        if(primerNumero==1){
+            return "San José";
+        }
+        if(primerNumero==2){
+            return "Alajuela";
+        }
+        if(primerNumero==3){
+            return "Cartago";
+        }
+        if(primerNumero==4){
+            return "Heredia";
+        }
+        if(primerNumero==5){
+            return "Guanacaste";
+        }
+        if(primerNumero==6){
+            return "Guanacaste";
+        }
+        if(primerNumero==7){
+            return "Limón";
+        }
+        return "La cedula proporcionada de esta persona no es correcta";
+    }
+    
+    public int Edad(){
+        int anno = Integer.parseInt(fechaNacimiento.substring(6, 10));
+        return 2015-anno;
+    }
+    
+    public String IMC(){
+//        int alturaCM = altura/100;
+//        int alturaCM2 = alturaCM*100+altura%100;
+        int imc = masa/((altura)^2);
+        if(imc<18.50){
+            return "Delgadez";
+        }
+        if( (imc>=18.5) && (imc <=24.99) ){
+            return "normal";
+        }
+        if(imc>=25.00 && imc<=29.99){
+            return "Pre Obeso";
+        }
+        if(imc>=30.00 && imc<=39.99){
+            return "Obeso";
+        }
+        if(imc>=40.00){
+            return "Obesidad Morbida";
+        }
+        return "Error";
+    }
+    
+    public String signoZodical(){
+        int mes = Integer.parseInt(fechaNacimiento.substring(4, 5));
+        int mes2 = Integer.parseInt(fechaNacimiento.substring(3, 5));
+        int dia = Integer.parseInt(fechaNacimiento.substring(0, 2));
+        if( (mes==3 && dia>=21) || (mes==4 && dia<=20) ){
+            return "Aries";
+        }
+        if( (mes==4 && dia>=21) || (mes==5 && dia<=20) ){
+            return "Tauro";
+        }
+        if( (mes==5 && dia>=21) || (mes==6 && dia<=20) ){
+            return "Géminis";
+        }
+        if( (mes==6 && dia>=21) || (mes==7 && dia<=20) ){
+            return "Cáncer";
+        }
+        if( (mes==7 && dia>=21) || (mes==8 && dia<=20) ){
+            return "Leo";
+        }
+        if( (mes==8 && dia>=21) || (mes==9 && dia<=20) ){
+            return "Virgo";
+        }
+        if( (mes==9 && dia>=21) || (mes2==10 && dia<=20) ){
+            return "Libra";
+        }
+        if( (mes2==10 && dia>=21) || (mes2==11 && dia<=20) ){
+            return "Escorpio";
+        }
+        if( (mes2==11 && dia>=21) || (mes2==12 && dia<=20) ){
+            return "Sagitario";
+        }
+        if( (mes2==12 && dia>=21) || (mes==1 && dia<=20) ){
+            return "Capricornio";
+        }
+        if( (mes==1 && dia>=21) || (mes==2 && dia<=20) ){
+            return "Acuario";
+        }
+        if( (mes==2 && dia>=21) || (mes==3 && dia<=20) ){
+            return "Piscis";
+        }
+        return "Error";
+    }
+}
